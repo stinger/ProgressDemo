@@ -11,33 +11,29 @@ import UIKit
 @IBDesignable
 class ProgressView: UIView {
 
-    private func calculateEndAngle(percentage: Double) -> CGFloat {
+    fileprivate func calculateEndAngle(_ percentage: Double) -> CGFloat {
         let degrees = (percentage / 100) * 360.0
         let startAngle = (-0.5 * M_PI)
         let radians = startAngle + (degrees * (M_PI / 180))
         return CGFloat(radians)
     }
 
-    private func getLayer(percentage: Double) -> PieSliceLayer
+    fileprivate func getLayer(_ percentage: Double) -> PieSliceLayer
     {
 
         let startAngle = (-0.5 * M_PI)
         let psl = PieSliceLayer(layer: layer)
-        psl.frame = CGRectMake(0,0,bounds.size.width,bounds.size.height)
+        psl.frame = CGRect(x: 0,y: 0,width: bounds.size.width,height: bounds.size.height)
         psl.startAngle = CGFloat(startAngle)
         return psl
     }
 
-    func delay(delay:Double, closure:()->()) {
-        dispatch_after(
-            dispatch_time(
-                DISPATCH_TIME_NOW,
-                Int64(delay * Double(NSEC_PER_SEC))
-            ),
-            dispatch_get_main_queue(), closure)
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
 
-    private func draw(){
+    fileprivate func draw(){
         let psl = getLayer(0.0)
         layer.addSublayer(psl)
         psl.endAngle = self.calculateEndAngle(10.0)
@@ -59,7 +55,7 @@ class ProgressView: UIView {
 
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         // Drawing code
         draw()
 

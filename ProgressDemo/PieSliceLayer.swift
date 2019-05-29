@@ -10,9 +10,9 @@ import UIKit
 
 class PieSliceLayer: CALayer {
 
-    var startAngle = CGFloat(-0.5 * M_PI)
+    var startAngle = CGFloat(-0.5 * Double.pi)
     @NSManaged var endAngle: CGFloat
-    var maxAngle = CGFloat(1.5 * M_PI)
+    var maxAngle = CGFloat(1.5 * Double.pi)
 
     var center: CGPoint {
         return CGPoint(x: self.bounds.size.width/2, y: self.bounds.size.height/2)
@@ -37,7 +37,7 @@ class PieSliceLayer: CALayer {
     func makeAnimationForKey(_ key: String!) -> CABasicAnimation {
         let anim = CABasicAnimation(keyPath: key)
         anim.fromValue = self.presentation()?.value(forKey: key)
-        anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        anim.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         anim.duration = 0.5
         return anim
     }

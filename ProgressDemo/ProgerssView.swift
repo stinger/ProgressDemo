@@ -13,15 +13,15 @@ class ProgressView: UIView {
 
     fileprivate func calculateEndAngle(_ percentage: Double) -> CGFloat {
         let degrees = (percentage / 100) * 360.0
-        let startAngle = (-0.5 * M_PI)
-        let radians = startAngle + (degrees * (M_PI / 180))
+        let startAngle = (-0.5 * Double.pi)
+        let radians = startAngle + (degrees * (Double.pi / 180))
         return CGFloat(radians)
     }
 
     fileprivate func getLayer(_ percentage: Double) -> PieSliceLayer
     {
 
-        let startAngle = (-0.5 * M_PI)
+        let startAngle = (-0.5 * Double.pi)
         let psl = PieSliceLayer(layer: layer)
         psl.frame = CGRect(x: 0,y: 0,width: bounds.size.width,height: bounds.size.height)
         psl.startAngle = CGFloat(startAngle)
